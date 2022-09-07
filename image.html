@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Capture image test</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        font-size: 1.1rem;
+        margin: 0.2rem;
+      }
+    </style>
+    <script>
+      let logger;
+      window.onload = (event) => {
+        hide("log"); // show log to debug on mobile
+        logger = document.getElementById("log");
+        log("page is fully loaded");
+        document.getElementById("image").width = window.innerWidth * 95 / 100;
+        document.getElementById("image-input").onchange = e => {
+          log("input changed");
+          const file = e.target.files[0];
+          document.getElementById("image").src = URL.createObjectURL(file);
+          show("image");
+          log("image shown");
+        }
+      }
+      show = function(id) {
+        document.getElementById(id).style.display = "block";
+      }
+      hide = function(id) {
+        document.getElementById(id).style.display = "none";
+      }
+      log = function(x) { 
+        logger.innerHTML += x + "\n";
+      };
+      window.onerror = function(e) {
+        log("Error: " + JSON.stringify(e));
+      };
+    </script>
+  </head>
+  <body>
+    <label for="user">Capture image:</label>
+    <br>
+    <input
+      type="file"
+      id="image-input"
+      capture="image"
+      accept="image/*"
+    >
+    <br>
+    <img id="image" src="#" alt="captured image" style="display:none" />
+    <br>
+    <textarea id="log" style="width:95%; font-style:italic; font-size:0.7rem; background-color:#eee;"></textarea>
+  </body>
+</html>

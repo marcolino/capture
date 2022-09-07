@@ -1,0 +1,1 @@
+Sample HTML+JS to capture image and video via HTML
